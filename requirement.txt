@@ -1,0 +1,5 @@
+To use the application enter the terminal and run "python manage.py runserver"
+Then click link to go to home page
+127.1.1.8000/admin to get to the admin
+SUPERUSER:Admin
+Password: 1234
