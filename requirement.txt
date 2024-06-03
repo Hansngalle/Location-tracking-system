@@ -3,3 +3,8 @@ Then click link to go to home page
 127.1.1.8000/admin to get to the admin
 SUPERUSER:Admin
 Password: 1234
+Now choose location in the search bar (country,city,unversity)
+you get location on the map
+it chooses the last selected searched location
+It also get your position
+Due to time and lack of experience we couldn't implement the other functionalities
