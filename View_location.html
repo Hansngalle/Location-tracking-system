@@ -1,0 +1,14 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Locations</title>
+</head>
+<body>
+    <h2>View Locations</h2>
+    <ul>
+        {% for location in locations %}
+            <li>{{ location.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
