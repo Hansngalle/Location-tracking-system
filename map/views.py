@@ -9,6 +9,8 @@ import geocoder
 
 
 def index(request):
+    context = {}
+
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -16,25 +18,31 @@ def index(request):
             return redirect('/')
     else:
         form = SearchForm()
-    address = Search.objects.all().last()
-    location = geocoder.osm(address)
-    lat = location.lat
-    lng = location.lng
-    country = location.country
-    if lat == None or lng == None and address is not None:
-        print(address)
-        address.delete()
-        return HttpResponse('You address input is invalid')
 
-    # Create Map Object
-    m = folium.Map(location=[19, -12], zoom_start=2)
+        address = Search.objects.all().last()
 
-    folium.Marker([lat, lng], tooltip='Click for more',
-                  popup=country).add_to(m)
-    # Get HTML Representation of Map Object
-    m = m._repr_html_()
-    context = {
-        'm': m,
-        'form': form,
-    }
+        if address:
+            location = geocoder.osm(address)
+            lat = location.lat
+            lng = location.lng
+            country = location.country
+        
+            if (lat == None or lng == None) and bool(address):
+                print(address)
+                breakpoint()
+                address.delete()
+                return HttpResponse('You address input is invalid')
+
+            # Create Map Object
+            m = folium.Map(location=[19, -12], zoom_start=2)
+
+            folium.Marker([lat, lng], tooltip='Click for more',
+                        popup=country).add_to(m)
+            # Get HTML Representation of Map Object
+            m = m._repr_html_()
+            context = {
+                'm': m,
+                'form': form,
+            }
+
     return render(request, 'index.html', context)
